@@ -1,0 +1,5 @@
+.zcompdump
+.zcompcache
+.zsh_history
+vendor/
+composer.*
