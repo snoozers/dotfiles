@@ -1,0 +1,4 @@
+# マシン固有の設定を書く
+
+# パスの設定
+export PATH=$HOME:$PATH
