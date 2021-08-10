@@ -54,6 +54,8 @@ install() {
 
     # ログインシェルを変更
     chsh -s $(which zsh)
+
+    logo
 }
 
 # homebrewをインストール

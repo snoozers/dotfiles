@@ -1,5 +1,6 @@
 # dotfiles
-- shellの設定
+
+## shellの設定
 ```
 // Mac
 $ curl -L raw.github.com/snoozers/dotfiles/master/etc/init/setup.sh | bash
@@ -8,7 +9,12 @@ $ curl -L raw.github.com/snoozers/dotfiles/master/etc/init/setup.sh | bash
 $ apt update && apt-get install -y curl && curl -L raw.github.com/snoozers/dotfiles/master/etc/init/setup.sh | bash
 ```
 
-- アプリケーションのインストール
+## アプリケーションのインストール
 ```
 $ make install
+```
+
+## その他
+```
+$ make
 ```

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export PLATFORM_OS
+export DOT_PATH="$HOME/dotfiles"
 
 is_exists() {
     which "$1" >/dev/null 2>&1
@@ -161,4 +162,8 @@ is_linux() {
     else
         return 1
     fi
+}
+
+logo() {
+    bash $DOT_PATH/bin/logo.sh
 }
