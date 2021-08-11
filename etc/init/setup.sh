@@ -62,7 +62,6 @@ install() {
 if ! has "brew"; then
     # Mac
     if is_osx; then
-        DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential curl gettext m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev git
         curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh > $HOME/install_homebrew_tmp.sh
         chmod u+x $HOME/install_homebrew_tmp.sh
         source $HOME/install_homebrew_tmp.sh
