@@ -65,18 +65,13 @@ show(){
 # アプリケーションを起動する
 app(){
   # 標準エラー出力をdev/nullに捨てる
-  HOME_APP=`find /Applications -maxdepth 1 -name *.app 2>/dev/null`
+  ROOT_APP=`find /Applications -maxdepth 1 -name *.app 2>/dev/null`
+  SYSTEM_APP=`find /System/Applications -maxdepth 1 -name *.app 2>/dev/null`
   USER_APP=`find ~/Applications -maxdepth 1 -name *.app 2>/dev/null`
-  if [ "$HOME_APP" ] && [ "$USER_APP" ]; then
-    ls -lad ~/Applications /Applications/* | peco | awk '{c="";for(i=9;i<=NF;i++) c=c $i" "; print c}' | sed -e 's/ /\\ /g' | sed -e 's/\\ $//' | xargs open -a
-  elif [ "$HOME_APP" ]; then
-    # Homeのアプリケーションのみ存在する場合
-    ls -lad /Applications/* | peco | awk '{c="";for(i=9;i<=NF;i++) c=c $i" "; print c}' | sed -e 's/ /\\ /g' | sed -e 's/\\ $//' | xargs open -a
-  elif [ "$USER_APP" ]; then
-    # Userのアプリケーションのみが存在する場合
-    ls -lad ~Applications/* | peco | awk '{c="";for(i=9;i<=NF;i++) c=c $i" "; print c}' | sed -e 's/ /\\ /g' | sed -e 's/\\ $//' | xargs open -a
+  if [ "$ROOT_APP" ] || [ "$USER_APP" ] || [ "$SYSTEM_APP" ]; then
+    ls -lad /System/Applications/* /Applications/* ~/Applications/ | peco | awk '{c="";for(i=9;i<=NF;i++) c=c $i" "; print c}' | sed -e 's/ /\\ /g' | sed -e 's/\\ $//' | xargs open -a
   else
-    echo '起動できるコマンドが存在しません。'
+    e_error "実行可能なアプリケーションが存在しません"
   fi
 }
 
