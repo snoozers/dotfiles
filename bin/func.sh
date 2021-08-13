@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 export PLATFORM_OS
 export DOT_PATH="$HOME/dotfiles"
@@ -117,15 +117,18 @@ log_echo() {
 }
 
 e_process_waiting() {
-    printf "\r%${#$(log_echo $1...)}s" "$(log_echo $1...)"
+    local waiting_text=$(log_echo $1...)
+    printf "\r%${#waiting_text}s" "$waiting_text"
 }
 
 e_process_done() {
-    printf "\r%-${#$(log_echo "$1...")}s\n" "$(log_pass "$(e_success "$1")")"
+    local waiting_text=$(log_echo $1...)
+    printf "\r%-${#waiting_text}s\n" "$(log_pass "$(e_success "$1")")"
 }
 
 e_process_fail() {
-    printf "\r%-${#$(log_echo "$1...")}s\n" "$(log_warn "$(e_warning "$1")")"
+    local waiting_text=$(log_echo $1...)
+    printf "\r%-${#waiting_text}s\n" "$(log_warn "$(e_warning "$1")")"
 }
 
 die() {
@@ -162,6 +165,28 @@ is_linux() {
     else
         return 1
     fi
+}
+
+stdin_to_tty() {
+    # 標準出力をttyに
+    exec 1> /dev/tty
+}
+
+stderr_to_tty() {
+    # 標準エラー出力をttyに
+    exec 2> /dev/tty
+}
+
+stdin_to_file() {
+    # 標準出力をファイルに
+    if [ ! -e $1 ]; then touch $1; fi
+    exec 1> >(cat >> $1)
+}
+
+stderr_to_file() {
+    # 標準エラー出力をファイルに
+    if [ ! -e $1 ]; then touch $1; fi
+    exec 2> >(cat >> $1)
 }
 
 logo() {
