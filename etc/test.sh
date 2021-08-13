@@ -55,3 +55,9 @@ if has "trash"; then
 else
     e_error "trash"
 fi
+
+if has "docker"; then
+    e_success "docker"
+else
+    e_error "docker"
+fi
