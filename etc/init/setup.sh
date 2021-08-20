@@ -3,6 +3,7 @@
 DOT_PATH="$HOME/dotfiles"
 SETUP_PATH="$DOT_PATH/etc/init"
 GITHUB_URL="https://github.com/snoozers/dotfiles.git"
+GITHUB_SSH_URL="git@github.com:snoozers/dotfiles.git"
 
 # githubの共通関数を使用できるように
 source <(curl -L raw.github.com/snoozers/dotfiles/master/bin/func.sh)
@@ -21,6 +22,8 @@ install() {
     if [ $? -ne 0 ]; then
         die "not found: $DOT_PATH"
     fi
+    # sshを使用するように
+    git remote set-url origin "$GITHUB_SSH_URL"
 
     # ~/.** -> dotfiles/.** のシンボリックリンク
     for f in .??*
