@@ -31,7 +31,7 @@ alias gs='(){git log -p -S $1 $2}'
 ## スリープ無効・有効（電源繋がなくても外部ディスプレイ使えるように）
 alias sleepon='sudo pmset -a disablesleep 0'
 alias sleepoff='sudo pmset -a disablesleep 1'
-alias sleepnow='pmset sleepnow'
+alias sleepnow='sleepon && pmset sleepnow'
 
 # パス
 export PATH=$HOME/dotfiles/bin:$PATH
