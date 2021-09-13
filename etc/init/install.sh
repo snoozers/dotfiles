@@ -67,6 +67,10 @@ start '[brew cask] dbeaver-community'
 if ! brew list --cask | grep dbeaver-community > /dev/null 2>&1; then brew install dbeaver-community > /dev/null; else true; fi
 finish '[brew cask] dbeaver-community'
 
+start '[brew cask] stoplight-studio'
+if ! brew list --cask | grep stoplight-studio > /dev/null 2>&1; then brew install stoplight-studio > /dev/null; else true; fi
+finish '[brew cask] stoplight-studio'
+
 start '[composer] codesniffer'
 composer require -q --dev "squizlabs/php_codesniffer=*" > /dev/null
 finish '[composer] codesniffer'
