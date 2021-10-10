@@ -28,10 +28,12 @@ alias rm='(){ if has trash; then trash $*; else rm $*; fi }'
 alias sw='git checkout `git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 ## コード変更履歴検索
 alias gs='(){git log -p -S $1 $2}'
-## スリープ無効・有効（電源繋がなくても外部ディスプレイ使えるように）
-alias sleepon='sudo pmset -a disablesleep 0'
-alias sleepoff='sudo pmset -a disablesleep 1'
-alias sleepnow='sleepon && pmset sleepnow'
+alias push='git push'
+alias pull='git pull'
+alias st='git stash'
+alias ch='git checkout'
+alias chp='git cherry-pick'
+alias sleepnow="pmset sleepnow"
 
 # パス
 export PATH=$HOME/dotfiles/bin:$PATH
