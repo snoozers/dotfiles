@@ -35,13 +35,13 @@ start '[brew] コンソール上で動くgitブラウザ'
 if ! brew list --formula | grep tig > /dev/null 2>&1; then brew install tig > /dev/null; else true; fi
 finish '[brew] コンソール上で動くgitブラウザ'
 
-start '[brew] docker'
-if ! brew list --formula | grep docker > /dev/null 2>&1; then brew install docker > /dev/null; else true; fi
-finish '[brew] docker'
-
 start '[brew] docker-compose'
 if ! brew list --formula | grep docker-compose > /dev/null 2>&1; then brew install docker-compose > /dev/null; else true; fi
 finish '[brew] docker-compose'
+
+start '[brew cask] docker'
+if ! brew list --cask | grep docker > /dev/null 2>&1; then brew install --cask docker > /dev/null; else true; fi
+finish '[brew cask] docker'
 
 start '[brew cask] chrome'
 if ! brew list --cask | grep google-chrome > /dev/null 2>&1; then brew install --cask google-chrome > /dev/null; else true; fi
