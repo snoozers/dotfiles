@@ -39,30 +39,34 @@ start '[brew] docker'
 if ! brew list --formula | grep docker > /dev/null 2>&1; then brew install docker > /dev/null; else true; fi
 finish '[brew] docker'
 
-start '[brew cask] docker'
-if ! brew list --cask | grep docker > /dev/null 2>&1; then brew install docker > /dev/null; else true; fi
-finish '[brew cask] docker'
+start '[brew] docker-compose'
+if ! brew list --formula | grep docker-compose > /dev/null 2>&1; then brew install docker-compose > /dev/null; else true; fi
+finish '[brew] docker-compose'
 
 start '[brew cask] chrome'
-if ! brew list --cask | grep google-chrome > /dev/null 2>&1; then brew install google-chrome > /dev/null; else true; fi
+if ! brew list --cask | grep google-chrome > /dev/null 2>&1; then brew install --cask google-chrome > /dev/null; else true; fi
 finish '[brew cask] chrome'
 
 start '[brew cask] vscode'
-if ! brew list --cask | grep visual-studio-code > /dev/null 2>&1; then brew install visual-studio-code > /dev/null; else true; fi
+if ! brew list --cask | grep visual-studio-code > /dev/null 2>&1; then brew install --cask visual-studio-code > /dev/null; else true; fi
 finish '[brew cask] vscode'
 
 start '[brew cask] slack'
-if ! brew list --cask | grep slack > /dev/null 2>&1; then brew install slack > /dev/null; else true; fi
+if ! brew list --cask | grep slack > /dev/null 2>&1; then brew install --cask slack > /dev/null; else true; fi
 finish '[brew cask] slack'
 
 start '[brew cask] iterm2'
-if ! brew list --cask | grep iterm2 > /dev/null 2>&1; then brew install iterm2 > /dev/null; else true; fi
+if ! brew list --cask | grep iterm2 > /dev/null 2>&1; then brew install --cask iterm2 > /dev/null; else true; fi
 finish '[brew cask] iterm2'
 
 start '[brew cask] dbeaver-community'
-if ! brew list --cask | grep dbeaver-community > /dev/null 2>&1; then brew install dbeaver-community > /dev/null; else true; fi
+if ! brew list --cask | grep dbeaver-community > /dev/null 2>&1; then brew install --cask dbeaver-community > /dev/null; else true; fi
 finish '[brew cask] dbeaver-community'
 
 start '[brew cask] stoplight-studio'
-if ! brew list --cask | grep stoplight-studio > /dev/null 2>&1; then brew install stoplight-studio > /dev/null; else true; fi
+if ! brew list --cask | grep stoplight-studio > /dev/null 2>&1; then brew install --cask stoplight-studio > /dev/null; else true; fi
 finish '[brew cask] stoplight-studio'
+
+start '[brew cask] postman'
+if ! brew list --cask | grep postman > /dev/null 2>&1; then brew install --cask postman > /dev/null; else true; fi
+finish '[brew cask] postman'
