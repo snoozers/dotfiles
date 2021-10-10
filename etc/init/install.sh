@@ -35,10 +35,6 @@ start '[brew] コンソール上で動くgitブラウザ'
 if ! brew list --formula | grep tig > /dev/null 2>&1; then brew install tig > /dev/null; else true; fi
 finish '[brew] コンソール上で動くgitブラウザ'
 
-start '[brew] composer'
-if ! brew list --formula | grep composer > /dev/null 2>&1; then brew install composer > /dev/null; else true; fi
-finish '[brew] composer'
-
 start '[brew] docker'
 if ! brew list --formula | grep docker > /dev/null 2>&1; then brew install docker > /dev/null; else true; fi
 finish '[brew] docker'
@@ -70,15 +66,3 @@ finish '[brew cask] dbeaver-community'
 start '[brew cask] stoplight-studio'
 if ! brew list --cask | grep stoplight-studio > /dev/null 2>&1; then brew install stoplight-studio > /dev/null; else true; fi
 finish '[brew cask] stoplight-studio'
-
-start '[composer] codesniffer'
-composer require -q --dev "squizlabs/php_codesniffer=*" > /dev/null
-finish '[composer] codesniffer'
-
-# phpcs.xmlのコピー
-PHPCS_DIR=${HOME}/.composer/vendor/squizlabs/php_codesniffer
-start '[copy] phpcs.xml'
-if [ -d ${PHPCS_DIR} ] && [ ! -e ${PHPCS_DIR}/phpcs.xml ]; then
-    cp ${DOTFILES_DIR}/phpcs/phpcs.xml ${PHPCS_DIR}/
-fi
-finish '[copy] phpcs.xml'
