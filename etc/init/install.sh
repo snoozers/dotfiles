@@ -70,3 +70,7 @@ finish '[brew cask] stoplight-studio'
 start '[brew cask] postman'
 if ! brew list --cask | grep postman > /dev/null 2>&1; then brew install --cask postman > /dev/null; else true; fi
 finish '[brew cask] postman'
+
+start '[brew cask] zoom'
+if ! brew list --cask | grep zoom > /dev/null 2>&1; then brew install --cask zoom > /dev/null; else true; fi
+finish '[brew cask] zoom'
