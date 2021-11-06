@@ -32,7 +32,7 @@ update: ##開発ツールの更新
 	@echo '更新のあるformula =>'
 	@brew outdated
 	@echo 'パッケージのアップデート =>'
-	@brew upgrade
+	@brew upgrade --greedy
 	@echo '古いformulaを削除 =>'
 	@brew cleanup -n
 	@echo 'doctor =>'
