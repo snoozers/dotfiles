@@ -23,6 +23,10 @@ start '[vundle] vimプラグインインストール'
 if has "vim"; then vim +PluginInstall +qall > /dev/null 2>&1; else true; fi
 finish '[vundle] vimプラグインインストール'
 
+start '[brew] bash latest'
+if ! brew list --formula | grep bash > /dev/null 2>&1; then brew install bash > /dev/null; else true; fi
+finish '[brew] bash latest'
+
 start '[brew] 削除コマンドで削除したファイル・フォルダをゴミ箱へ'
 if ! brew list --formula | grep trash > /dev/null 2>&1; then brew install trash > /dev/null; else true; fi
 finish '[brew] 削除コマンドで削除したファイル・フォルダをゴミ箱へ'
@@ -74,3 +78,19 @@ finish '[brew cask] postman'
 start '[brew cask] zoom'
 if ! brew list --cask | grep zoom > /dev/null 2>&1; then brew install --cask zoom > /dev/null; else true; fi
 finish '[brew cask] zoom'
+
+start '[brew cask] xbar'
+if ! brew list --cask | grep xbar > /dev/null 2>&1; then brew install --cask xbar > /dev/null; else true; fi
+finish '[brew cask] xbar'
+
+start '[brew cask] rectangle'
+if ! brew list --cask | grep rectangle > /dev/null 2>&1; then brew install --cask rectangle > /dev/null; else true; fi
+finish '[brew cask] rectangle'
+
+start '[brew cask] stats'
+if ! brew list --cask | grep stats > /dev/null 2>&1; then brew install --cask stats > /dev/null; else true; fi
+finish '[brew cask] stats'
+
+start '[brew cask] firefox'
+if ! brew list --cask | grep firefox > /dev/null 2>&1; then brew install --cask firefox --language=ja > /dev/null; else true; fi
+finish '[brew cask] firefox'
