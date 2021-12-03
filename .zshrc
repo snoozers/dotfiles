@@ -36,7 +36,7 @@ alias chp='git cherry-pick'
 alias gdb='delete-all-branch'
 alias sleepnow="pmset sleepnow"
 function delete-all-branch() {
-  echo "マージ済みのローカルブランチを全て削除しますか？(y/N): "
+  echo "マージ済みのローカルブランチ(master/develop/mainを除く)を全て削除しますか？(y/N): "
   if read -sq; then
     git branch --merged | egrep -v '\*|develop|master|main' | xargs git branch -d
     echo 削除しました
