@@ -94,3 +94,7 @@ finish '[brew cask] stats'
 start '[brew cask] firefox'
 if ! brew list --cask | grep firefox > /dev/null 2>&1; then brew install --cask firefox --language=ja > /dev/null; else true; fi
 finish '[brew cask] firefox'
+
+start '[brew cask] clipy'
+if ! brew list --cask | grep clipy > /dev/null 2>&1; then brew install --cask clipy > /dev/null; else true; fi
+finish '[brew cask] clipy'
