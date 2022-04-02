@@ -33,8 +33,10 @@ update: ##開発ツールの更新
 	@brew outdated
 	@echo 'パッケージのアップデート =>'
 	@brew upgrade --greedy
-	@echo '古いformulaを削除 =>'
+	@echo '古いバージョンのformula一覧 =>'
 	@brew cleanup -n
+	@echo '古いバージョンのformulaを削除 =>'
+	@brew cleanup
 	@echo 'doctor =>'
 	@brew doctor
 
