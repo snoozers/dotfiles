@@ -35,6 +35,10 @@ start '[brew] peco'
 if ! brew list --formula | grep peco > /dev/null 2>&1; then brew install peco > /dev/null; else true; fi
 finish '[brew] peco'
 
+start '[brew] jq'
+if ! brew list --formula | grep jq > /dev/null 2>&1; then brew install jq > /dev/null; else true; fi
+finish '[brew] jq'
+
 start '[brew] コンソール上で動くgitブラウザ'
 if ! brew list --formula | grep tig > /dev/null 2>&1; then brew install tig > /dev/null; else true; fi
 finish '[brew] コンソール上で動くgitブラウザ'
