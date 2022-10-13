@@ -55,6 +55,10 @@ start '[brew cask] chrome'
 if ! brew list --cask | grep google-chrome > /dev/null 2>&1; then brew install --cask google-chrome > /dev/null; else true; fi
 finish '[brew cask] chrome'
 
+start '[brew cask] pushplaylabs-sidekick'
+if ! brew list --cask | grep pushplaylabs-sidekick > /dev/null 2>&1; then brew install --cask pushplaylabs-sidekick > /dev/null; else true; fi
+finish '[brew cask] pushplaylabs-sidekick'
+
 start '[brew cask] vscode'
 if ! brew list --cask | grep visual-studio-code > /dev/null 2>&1; then brew install --cask visual-studio-code > /dev/null; else true; fi
 finish '[brew cask] vscode'
@@ -102,3 +106,7 @@ finish '[brew cask] firefox'
 start '[brew cask] clipy'
 if ! brew list --cask | grep clipy > /dev/null 2>&1; then brew install --cask clipy > /dev/null; else true; fi
 finish '[brew cask] clipy'
+
+start '[brew cask] alt-tab'
+if ! brew list --cask | grep alt-tab > /dev/null 2>&1; then brew install --cask alt-tab > /dev/null; else true; fi
+finish '[brew cask] alt-tab'
