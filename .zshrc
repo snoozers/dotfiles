@@ -87,6 +87,17 @@ app(){
   fi
 }
 
+# 常駐型アプリケーションを起動する
+start(){
+    osascript \
+        -e 'tell application "Clipy" to run' \
+        -e 'tell application "Fantastical" to run' \
+        -e 'tell application "Stats" to run' \
+        -e 'tell application "xbar" to run' \
+        -e 'tell application "Rectangle" to run' \
+        -e 'tell application "AltTab" to run'
+}
+
 # 過去に実行したコマンドを選択。ctrl-rにバインド
 function peco-select-history() {
   BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
