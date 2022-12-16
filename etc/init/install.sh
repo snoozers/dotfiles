@@ -15,21 +15,25 @@ finish() {
 }
 
 # インストール
-start '[git] vimのプラグインマネージャ'
+start '[git] vimプラグインマネージャ'
 if [ ! -d ${HOME}/.vim/bundle ]; then git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim > /dev/null; else true; fi
-finish '[git] vimのプラグインマネージャ'
+finish '[git] vimプラグインマネージャ'
 
-start '[vundle] vimプラグインインストール'
+start '[vundle] vimプラグイン'
 if has "vim"; then vim +PluginInstall +qall > /dev/null 2>&1; else true; fi
-finish '[vundle] vimプラグインインストール'
+finish '[vundle] vimプラグイン'
 
-start '[brew] bash latest'
+start '[brew] HomeBrewアップデート'
+brew update > /dev/null
+finish '[brew] HomeBrewアップデート'
+
+start '[brew] bash'
 if ! brew list --formula | grep bash > /dev/null 2>&1; then brew install bash > /dev/null; else true; fi
-finish '[brew] bash latest'
+finish '[brew] bash'
 
-start '[brew] 削除コマンドで削除したファイル・フォルダをゴミ箱へ'
+start '[brew] trash'
 if ! brew list --formula | grep trash > /dev/null 2>&1; then brew install trash > /dev/null; else true; fi
-finish '[brew] 削除コマンドで削除したファイル・フォルダをゴミ箱へ'
+finish '[brew] trash'
 
 start '[brew] peco'
 if ! brew list --formula | grep peco > /dev/null 2>&1; then brew install peco > /dev/null; else true; fi
@@ -39,9 +43,17 @@ start '[brew] jq'
 if ! brew list --formula | grep jq > /dev/null 2>&1; then brew install jq > /dev/null; else true; fi
 finish '[brew] jq'
 
-start '[brew] コンソール上で動くgitブラウザ'
+start '[brew] tig'
 if ! brew list --formula | grep tig > /dev/null 2>&1; then brew install tig > /dev/null; else true; fi
-finish '[brew] コンソール上で動くgitブラウザ'
+finish '[brew] tig'
+
+start '[brew] bat'
+if ! brew list --formula | grep bat > /dev/null 2>&1; then brew install bat > /dev/null; else true; fi
+finish '[brew] bat'
+
+start '[brew] exa'
+if ! brew list --formula | grep exa > /dev/null 2>&1; then brew install exa > /dev/null; else true; fi
+finish '[brew] exa'
 
 start '[brew] docker-compose'
 if ! brew list --formula | grep docker-compose > /dev/null 2>&1; then brew install docker-compose > /dev/null; else true; fi

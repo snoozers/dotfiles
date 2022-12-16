@@ -8,12 +8,6 @@ else
     e_error "homebrew"
 fi
 
-if has "composer"; then
-    e_success "composer"
-else
-    e_error "composer"
-fi
-
 if has "zsh"; then
     e_success "zsh"
 else
@@ -60,4 +54,28 @@ if has "docker"; then
     e_success "docker"
 else
     e_error "docker"
+fi
+
+if has "jq"; then
+    e_success "jq"
+else
+    e_error "jq"
+fi
+
+if has "tig"; then
+    e_success "tig"
+else
+    e_error "tig"
+fi
+
+if has "bat"; then
+    e_success "bat"
+else
+    e_error "bat"
+fi
+
+if has "exa"; then
+    e_success "exa"
+else
+    e_error "exa"
 fi
