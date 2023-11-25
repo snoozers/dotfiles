@@ -51,10 +51,6 @@ start '[brew] bat'
 if ! brew list --formula | grep bat > /dev/null 2>&1; then brew install bat > /dev/null; else true; fi
 finish '[brew] bat'
 
-start '[brew] exa'
-if ! brew list --formula | grep exa > /dev/null 2>&1; then brew install exa > /dev/null; else true; fi
-finish '[brew] exa'
-
 start '[brew] docker-compose'
 if ! brew list --formula | grep docker-compose > /dev/null 2>&1; then brew install docker-compose > /dev/null; else true; fi
 finish '[brew] docker-compose'

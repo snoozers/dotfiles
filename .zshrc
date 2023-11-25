@@ -91,7 +91,6 @@ app(){
 start(){
     osascript \
         -e 'tell application "Clipy" to run' \
-        -e 'tell application "Fantastical" to run' \
         -e 'tell application "Stats" to run' \
         -e 'tell application "xbar" to run' \
         -e 'tell application "Rectangle" to run' \

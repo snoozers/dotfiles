@@ -73,9 +73,3 @@ if has "bat"; then
 else
     e_error "bat"
 fi
-
-if has "exa"; then
-    e_success "exa"
-else
-    e_error "exa"
-fi
