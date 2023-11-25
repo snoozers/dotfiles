@@ -48,6 +48,10 @@ function delete-all-branch() {
 # パス
 export PATH=$HOME/dotfiles/bin:$PATH
 export PATH=$HOME/dotfiles/bin/Darwin:$PATH
+export PATH="$PATH:/opt/homebrew/bin/"
+
+# home-brewのインストール先
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # 環境変数設定
 export GREP_COLOR='0;34'
@@ -125,9 +129,6 @@ function peco-cdr() {
 }
 zle -N peco-cdr
 bindkey '^u' peco-cdr
-
-# home-brewのインストール先
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # コマンドの打ち間違いを指摘してくれる
 setopt correct
