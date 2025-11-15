@@ -2,3 +2,14 @@
 
 # パスの設定
 export PATH=$HOME:$PATH
+
+# macOS固有の設定例
+# カラー表示（macOS）
+# alias ls='ls -G'
+
+# trash-cliを使ったrmの置き換え（macOS）
+# has() {
+#   which "$1" >/dev/null 2>&1
+#   return $?
+# }
+# alias rm='(){ if has trash; then trash $*; else command rm $*; fi }'

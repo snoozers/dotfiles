@@ -18,13 +18,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/dotfiles/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-# 共通関数読み込み
-source $HOME/dotfiles/bin/func.sh
 
 # エイリアス
-alias ls='ls -G'
 alias dc='docker-compose'
-alias rm='(){ if has trash; then trash $*; else rm $*; fi }'
 alias sw='git checkout `git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 ## コード変更履歴検索
 alias gs='(){git log -p -S $1 $2}'
@@ -34,7 +30,6 @@ alias st='git stash'
 alias ch='git checkout'
 alias chp='git cherry-pick'
 alias gdb='delete-all-branch'
-alias sleepnow="pmset sleepnow"
 function delete-all-branch() {
   echo "マージ済みのローカルブランチ(master/develop/mainを除く)を全て削除しますか？(y/N): "
   if read -sq; then
@@ -44,14 +39,6 @@ function delete-all-branch() {
     echo キャンセルしました
   fi
 }
-
-# パス
-export PATH=$HOME/dotfiles/bin:$PATH
-export PATH=$HOME/dotfiles/bin/Darwin:$PATH
-export PATH=/opt/homebrew/bin:$PATH
-
-# home-brewのインストール先
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # 環境変数設定
 export GREP_COLOR='0;34'
@@ -72,34 +59,6 @@ add-zsh-hook chpwd chpwd_recent_dirs
 
 # cdrコマンドで履歴にないディレクトリにも移動可能に
 zstyle ":chpwd:*" recent-dirs-default true
-
-# memoをプレビュー表示する
-show(){
- memo cat | mdless --no-color
-}
-
-# アプリケーションを起動する
-app(){
-  # 標準エラー出力をdev/nullに捨てる
-  ROOT_APP=`find /Applications -maxdepth 1 -name *.app 2>/dev/null`
-  SYSTEM_APP=`find /System/Applications -maxdepth 1 -name *.app 2>/dev/null`
-  USER_APP=`find ~/Applications -maxdepth 1 -name *.app 2>/dev/null`
-  if [ "$ROOT_APP" ] || [ "$USER_APP" ] || [ "$SYSTEM_APP" ]; then
-    ls -lad /System/Applications/* /Applications/* ~/Applications/ | peco | awk '{c="";for(i=9;i<=NF;i++) c=c $i" "; print c}' | sed -e 's/ /\\ /g' | sed -e 's/\\ $//' | xargs open -a
-  else
-    e_error "実行可能なアプリケーションが存在しません"
-  fi
-}
-
-# 常駐型アプリケーションを起動する
-start(){
-    osascript \
-        -e 'tell application "Clipy" to run' \
-        -e 'tell application "Stats" to run' \
-        -e 'tell application "xbar" to run' \
-        -e 'tell application "Rectangle" to run' \
-        -e 'tell application "AltTab" to run'
-}
 
 # 過去に実行したコマンドを選択。ctrl-rにバインド
 function peco-select-history() {
@@ -140,6 +99,3 @@ SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [Yes/No/Abort/Edit] => "
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
-
-# fnm（nodeバージョン管理）の設定
-eval "$(fnm env --use-on-cd)"
