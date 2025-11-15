@@ -48,7 +48,7 @@ function delete-all-branch() {
 # パス
 export PATH=$HOME/dotfiles/bin:$PATH
 export PATH=$HOME/dotfiles/bin/Darwin:$PATH
-export PATH="$PATH:/opt/homebrew/bin/"
+export PATH=/opt/homebrew/bin:$PATH
 
 # home-brewのインストール先
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
@@ -140,3 +140,6 @@ SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [Yes/No/Abort/Edit] => "
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
+
+# fnm（nodeバージョン管理）の設定
+eval "$(fnm env --use-on-cd)"
