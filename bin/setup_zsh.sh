@@ -85,8 +85,9 @@ fi
 
 # dotfiles からシンボリックリンクを作成
 ln -snfv "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
-ln -snfv "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
+ln -snfv "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv"
 ln -snfv "$DOTFILES_DIR/.zprofile" "$HOME/.zprofile"
+ln -snfv "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 
 echo "✅ シンボリックリンクの作成完了"
 echo ""
