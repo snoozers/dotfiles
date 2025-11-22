@@ -1,13 +1,8 @@
-#
-# Executes commands at login pre-zshrc.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+# zshrc の前にログイン時に実行されるコマンド
 
-#
-# Browser
-#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ブラウザ
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
@@ -15,56 +10,55 @@ elif [[ "$OSTYPE" == linux* ]]; then
   export BROWSER='xdg-open'
 fi
 
-#
-# Editors
-#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# エディタ
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 export EDITOR='nano'
 export VISUAL='nano'
 export PAGER='less'
 
-#
-# Language
-#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 言語設定
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
 
-#
-# Paths
-#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# パス設定
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Ensure path arrays do not contain duplicates.
+# パス配列に重複が含まれないようにする
 typeset -gU cdpath fpath mailpath path
 
-# Set the list of directories that cd searches.
-# cdpath=(
-#   $cdpath
-# )
-
-# Set the list of directories that Zsh searches for programs.
+# Zsh がプログラムを検索するディレクトリのリストを設定
 path=(
   /usr/local/{bin,sbin}
   $path
 )
 
-#
-# Less
-#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# less の設定
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# Set the default Less options.
-# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-# Remove -X and -F (exit if the content fits on one screen) to enable it.
+# デフォルトの Less オプションを設定
+# -X (画面クリアの無効化) によりマウスホイールスクロールが無効化されています
+# 有効にするには -X と -F (内容が1画面に収まる場合は終了) を削除してください
 export LESS='-F -g -i -M -R -S -w -X -z-4'
 
-# Set the Less input preprocessor.
-# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+# Less の入力プリプロセッサを設定
+# システムに `lesspipe` または `lesspipe.sh` のいずれかが存在する可能性があるため両方を試す
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-# ls のカラー設定 (OS別)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# lsの設定
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# カラー設定
 if [[ "$OSTYPE" == darwin* ]]; then
   export LSCOLORS=ExxxxxxxCxxxxxxxxxxxxx
 else
