@@ -34,26 +34,22 @@
 │       └── Vundle.vim/          # Vundleプラグインマネージャ
 │
 ├── dotfiles/                    # このリポジトリ
+│   ├── .zshenv                  # Zsh環境変数（最初に読み込まれる）
+│   ├── .zprofile                # ログインシェル用の環境変数設定
 │   ├── .zshrc                   # Zsh設定ファイル（シンボリックリンク元）
 │   ├── .p10k.zsh                # Powerlevel10k設定
-│   ├── .zprofile                # 環境変数設定
 │   ├── .vimrc                   # Vim設定
 │   ├── .zshrc_local.example     # マシン固有設定のテンプレート
-│   ├── bin/
-│   │   ├── setup.sh             # 統合セットアップスクリプト（メイン）
-│   │   ├── setup_zsh.sh         # Zsh環境セットアップ
-│   │   └── setup_vim.sh         # Vim環境セットアップ
-│   └── provisioning/            # OS依存のプロビジョニング
-│       ├── Makefile
-│       ├── iterm2/              # iTerm2設定（macOS専用）
-│       └── init/
-│           ├── setup.sh
-│           └── install.sh
+│   └── bin/
+│       ├── setup.sh             # 統合セットアップスクリプト（メイン）
+│       ├── setup_zsh.sh         # Zsh環境セットアップ
+│       └── setup_vim.sh         # Vim環境セットアップ
 │
+├── .zshenv -> ~/dotfiles/.zshenv        # シンボリックリンク
+├── .zprofile -> ~/dotfiles/.zprofile    # シンボリックリンク
 ├── .zshrc -> ~/dotfiles/.zshrc          # シンボリックリンク
-├── .vimrc -> ~/dotfiles/.vimrc          # シンボリックリンク
 ├── .p10k.zsh -> ~/dotfiles/.p10k.zsh    # シンボリックリンク
-└── .zprofile -> ~/dotfiles/.zprofile    # シンボリックリンク
+└── .vimrc -> ~/dotfiles/.vimrc          # シンボリックリンク
 ```
 
 ## 🚀 セットアップ
@@ -85,10 +81,11 @@ zsh bin/setup.sh
 2. Vimプラグインのインストール
 
 #### 設定ファイル
-- `~/.zshrc` → `~/dotfiles/.zshrc`
-- `~/.vimrc` → `~/dotfiles/.vimrc`
-- `~/.p10k.zsh` → `~/dotfiles/.p10k.zsh`
+- `~/.zshenv` → `~/dotfiles/.zshenv`
 - `~/.zprofile` → `~/dotfiles/.zprofile`
+- `~/.zshrc` → `~/dotfiles/.zshrc`
+- `~/.p10k.zsh` → `~/dotfiles/.p10k.zsh`
+- `~/.vimrc` → `~/dotfiles/.vimrc`
 
 ### 3. フォントのインストール（必須）
 
@@ -106,6 +103,25 @@ brew install font-hack-nerd-font
 brew install font-fira-code-nerd-font
 ```
 
+#### Linuxの場合
+
+```bash
+# Debian/Ubuntu
+sudo apt install fonts-powerline
+
+# Arch Linux
+sudo pacman -S ttf-meslo-nerd
+
+# または手動インストール
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+fc-cache -f -v
+```
+
 #### 手動インストール
 
 1. [Meslo Nerd Font](https://github.com/romkatv/powerlevel10k#manual-font-installation) をダウンロード
@@ -113,13 +129,7 @@ brew install font-fira-code-nerd-font
 
 #### ターミナルでフォントを設定
 
-**iTerm2の場合：**
-1. `Preferences` → `Profiles` → `Text` → `Font`
-2. フォント名を `MesloLGS NF` に変更
-
-**Terminal.appの場合：**
-1. `環境設定` → `プロファイル` → `フォント`
-2. フォント名を `MesloLGS NF` に変更
+使用しているターミナルエミュレータの設定でフォントを `MesloLGS NF` に変更してください。
 
 **VS Code統合ターミナルの場合：**
 ```json
@@ -150,7 +160,7 @@ cp ~/dotfiles/.zshrc_local.example ~/.zshrc_local
 vim ~/.zshrc_local
 ```
 
-macOS固有の設定例は `.zshrc_local.example` を参照してください。
+設定例は `.zshrc_local.example` を参照してください。
 
 ## 🔄 更新方法
 
@@ -251,28 +261,6 @@ plugins=(
 
 ```bash
 exec zsh
-```
-
-## 📦 その他のセットアップ
-
-### 開発環境のセットアップ（macOS）
-
-```bash
-# 初期セットアップ
-curl -L raw.github.com/snoozers/dotfiles/master/provisioning/init/setup.sh | bash
-
-# アプリケーションのインストール
-cd ~/dotfiles/provisioning
-make install
-```
-
-### その他のコマンド
-
-```bash
-cd ~/dotfiles/provisioning
-make          # ヘルプ表示
-make test     # インストール済みコマンドの確認
-make update   # Homebrewパッケージの更新
 ```
 
 ## 🛠️ トラブルシューティング
