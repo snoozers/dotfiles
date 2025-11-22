@@ -8,11 +8,18 @@
 
 ### 依存関係
 
+#### Zsh環境
 - **Oh My Zsh** - `~/.oh-my-zsh` にインストールされます
 - **Powerlevel10k** - Oh My Zshのカスタムテーマとしてインストールされます
 - **プラグイン**:
   - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - コマンド履歴からの自動補完
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - コマンドのシンタックスハイライト
+
+#### Vim環境
+- **Vundle** - Vimプラグインマネージャ（`~/.vim/bundle/Vundle.vim`）
+- **fzf** - ファジーファインダー（ファイル検索、必須）
+- **ripgrep (rg)** - 高速テキスト検索ツール（推奨、なければgrepを使用）
+- **Nerd Font** - アイコン表示用フォント（vim-devicons用、推奨）
 
 ## 🗂️ ディレクトリ構成
 
@@ -87,7 +94,49 @@ zsh bin/setup.sh
 - `~/.p10k.zsh` → `~/dotfiles/.p10k.zsh`
 - `~/.vimrc` → `~/dotfiles/.vimrc`
 
-### 3. フォントのインストール（必須）
+### 3. 外部ツールのインストール
+
+#### fzf（必須）
+
+Vim環境でファイル検索を行うために必要です。
+
+**macOSの場合：**
+```bash
+brew install fzf
+```
+
+**Linuxの場合：**
+```bash
+# Debian/Ubuntu
+sudo apt install fzf
+
+# Arch Linux
+sudo pacman -S fzf
+
+# または手動インストール
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
+
+#### ripgrep（推奨）
+
+高速なテキスト検索のために推奨されます。インストールされていない場合は通常のgrepが使用されます。
+
+**macOSの場合：**
+```bash
+brew install ripgrep
+```
+
+**Linuxの場合：**
+```bash
+# Debian/Ubuntu
+sudo apt install ripgrep
+
+# Arch Linux
+sudo pacman -S ripgrep
+```
+
+### 4. フォントのインストール（必須）
 
 **Powerlevel10kを正しく表示するには専用フォントが必須です！**
 
@@ -139,7 +188,7 @@ fc-cache -f -v
 }
 ```
 
-### 4. シェルを再起動
+### 5. シェルを再起動
 
 ```bash
 exec zsh
@@ -148,7 +197,7 @@ exec zsh
 初回起動時にPowerlevel10kの設定ウィザードが表示される場合があります。
 指示に従って好みの見た目を選択してください。
 
-### 5. （オプション）マシン固有の設定
+### 6. （オプション）マシン固有の設定
 
 マシン固有の設定（エイリアス、環境変数など）は `.zshrc_local` に記述します：
 
