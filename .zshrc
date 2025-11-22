@@ -46,11 +46,6 @@ source $ZSH/oh-my-zsh.sh
 # 基本的には.zshprofileに記述する。
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# PATH 設定
-# ※ .zshrc_local でマシン固有のPATHを追加することを推奨
-# 例: Homebrew で入れた avr-gcc@8
-export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
-
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # エイリアス (Aliases) & 関数 (Functions)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -86,6 +81,17 @@ function delete-all-branch() {
     echo "キャンセルしました"
   fi
 }
+
+# macOS固有: trash-cliを使った安全なrm
+if [[ "$OSTYPE" == darwin* ]]; then
+  has() {
+    which "$1" >/dev/null 2>&1
+    return $?
+  }
+  if has trash; then
+    alias rm='(){trash $*}'
+  fi
+fi
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Zsh オプション (setopt)

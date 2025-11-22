@@ -35,13 +35,6 @@
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
-# macOS固有: trash-cliを使った安全なrm
-# has() {
-#   which "$1" >/dev/null 2>&1
-#   return $?
-# }
-# alias rm='(){ if has trash; then trash $*; else command rm $*; fi }'
-
 # 例：会社PCでのプロキシ経由git
 # alias git='http_proxy=http://proxy.example.com:8080 git'
 
