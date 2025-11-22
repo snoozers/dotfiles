@@ -11,6 +11,8 @@
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
+elif [[ "$OSTYPE" == linux* ]]; then
+  export BROWSER='xdg-open'
 fi
 
 #
@@ -60,4 +62,11 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
+
+# ls のカラー設定 (OS別)
+if [[ "$OSTYPE" == darwin* ]]; then
+  export LSCOLORS=ExxxxxxxCxxxxxxxxxxxxx
+else
+  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
 fi

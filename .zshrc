@@ -43,14 +43,8 @@ source $ZSH/oh-my-zsh.sh
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 環境変数 (Environment Variables)
+# 基本的には.zshprofileに記述する。
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-# grep のカラー設定
-export GREP_COLOR='0;34'
-export GREP_OPTIONS='--color=auto'
-
-# ls のカラー設定 (macOS/BSD)
-export LSCOLORS=ExxxxxxxCxxxxxxxxxxxxx
 
 # PATH 設定
 # ※ .zshrc_local でマシン固有のPATHを追加することを推奨
