@@ -70,15 +70,51 @@ alias gs='(){git log -p -S $1 $2}'
 # Git (関数): マージ済みのローカルブランチを一括削除
 alias gdb='delete-all-branch'
 function delete-all-branch() {
-  echo "マージ済みのローカルブランチ(master/develop/mainを除く)を全て削除しますか？(y/N): "
-  # read -q は zsh 固有 (キー入力を待ち、Enter不要)
+  # リモートの最新状態を取得
+  echo "📡 リモートの最新状態を取得中..."
+  git fetch --prune --quiet
+
+  # 削除対象のブランチを収集
+  local branches_to_delete=$(
+    {
+      git branch --merged main 2>/dev/null
+      git branch --merged master 2>/dev/null
+      git branch --merged develop 2>/dev/null
+    } | egrep -v '\*|develop|master|main' | sort -u
+  )
+
+  # 削除対象がない場合
+  if [[ -z "$branches_to_delete" ]]; then
+    echo "✅ 削除可能なマージ済みブランチはありません"
+    return 0
+  fi
+
+  # 削除対象を表示
+  echo "\n🗑️  削除対象のブランチ:"
+  echo "$branches_to_delete" | sed 's/^/  • /'
+
+  # 確認
+  echo -n "\n❓ これらのブランチを削除しますか？ (y/N): "
   if read -q; then
     echo # 改行
-    git branch --merged | egrep -v '\*|develop|master|main' | xargs git branch -d
-    echo "削除しました"
+    echo "\n🔄 ブランチを削除中..."
+
+    # ブランチを1つずつ削除（進行状況を表示）
+    local count=0
+    local total=$(echo "$branches_to_delete" | wc -l | tr -d ' ')
+
+    echo "$branches_to_delete" | while read branch; do
+      if [[ -n "$branch" ]]; then
+        count=$((count + 1))
+        git branch -d "$branch" 2>/dev/null
+        echo "  [$count/$total] ✓ $branch"
+      fi
+    done
+
+    echo "\n✨ 完了！ $total 個のブランチを削除しました"
   else
     echo # 改行
-    echo "キャンセルしました"
+    echo "❌ キャンセルしました"
   fi
 }
 
