@@ -6,7 +6,7 @@
 # 先に表示します。このブロックより上に記述すべきは、コンソール入力を
 # 必要とする初期化コードのみです。(例: パスワード入力、[y/n]確認)
 #
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if [ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
@@ -39,7 +39,7 @@ source $ZSH/oh-my-zsh.sh
 # 設定をカスタマイズしたい場合は `p10k configure` を実行するか、
 # ~/.p10k.zsh を直接編集してください。
 #
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[ ! -f ~/.p10k.zsh ] || source ~/.p10k.zsh
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 環境変数 (Environment Variables)
@@ -69,7 +69,7 @@ alias gs='(){git log -p -S $1 $2}'
 
 # Git (関数): マージ済みのローカルブランチを一括削除
 alias gdb='delete-all-branch'
-function delete-all-branch() {
+delete-all-branch() {
   # リモートの最新状態を取得
   echo "📡 リモートの最新状態を取得中..."
   git fetch --prune --quiet
@@ -84,7 +84,7 @@ function delete-all-branch() {
   )
 
   # 削除対象がない場合
-  if [[ -z "$branches_to_delete" ]]; then
+  if [ -z "$branches_to_delete" ]; then
     echo "✅ 削除可能なマージ済みブランチはありません"
     return 0
   fi
@@ -104,7 +104,7 @@ function delete-all-branch() {
     local total=$(echo "$branches_to_delete" | wc -l | tr -d ' ')
 
     echo "$branches_to_delete" | while read branch; do
-      if [[ -n "$branch" ]]; then
+      if [ -n "$branch" ]; then
         count=$((count + 1))
         git branch -d "$branch" 2>/dev/null
         echo "  [$count/$total] ✓ $branch"
@@ -119,15 +119,17 @@ function delete-all-branch() {
 }
 
 # macOS固有: trash-cliを使った安全なrm
-if [[ "$OSTYPE" == darwin* ]]; then
-  has() {
-    which "$1" >/dev/null 2>&1
-    return $?
-  }
-  if has trash; then
-    alias rm='(){trash $*}'
-  fi
-fi
+case "$OSTYPE" in
+  darwin*)
+    has() {
+      which "$1" >/dev/null 2>&1
+      return $?
+    }
+    if has trash; then
+      alias rm='(){trash $*}'
+    fi
+    ;;
+esac
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Zsh オプション (setopt)
@@ -164,7 +166,7 @@ zstyle ":chpwd:*" recent-dirs-default true
 # ------------------------------------------------------------
 # [Ctrl + R]: コマンド履歴 (history) を peco で検索
 # ------------------------------------------------------------
-function peco-select-history() {
+peco-select-history() {
   # 履歴を peco に渡し、選択したコマンドを $BUFFER (入力行) にセット
   BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
   CURSOR=$#BUFFER # カーソルを末尾に移動
@@ -177,14 +179,14 @@ bindkey '^r' peco-select-history
 # [Ctrl + U]: ディレクトリ履歴 (cdr) を peco で検索して cd
 # ------------------------------------------------------------
 # peco で cdr の履歴を取得する内部関数
-function peco-get-destination-from-cdr() {
+peco-get-destination-from-cdr() {
   cdr -l | \
   sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
   peco --query "$LBUFFER"
 }
 
 # peco で選択したディレクトリに cd する関数
-function peco-cdr() {
+peco-cdr() {
   local destination="$(peco-get-destination-from-cdr)"
   if [ -n "$destination" ]; then
     BUFFER="cd $destination"
