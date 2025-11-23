@@ -17,7 +17,7 @@ tnoremap <M-d> <C-\><C-n><C-w>k
 tnoremap <M-f> <C-\><C-n><C-w>l
 
 " 上書き保存
-nnoremap <C-c> :w<CR>
+nnoremap <C-s> :w<CR>
 " 開いているファイルを閉じる（変更がある場合は確認）
 nnoremap <C-w> :call SmartClose()<CR>
 " 全てのファイルを閉じてVimを終了（変更がある場合は確認）
