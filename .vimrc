@@ -37,9 +37,6 @@ nnoremap <C-r> :FZFMru<CR>
 " テキスト検索
 nnoremap <C-f> :Rg<CR>
 
-" コマンドパレット（全コマンドを検索・実行）
-nnoremap <C-c> :Commands<CR>
-
 " ノーマルモードでターミナル表示をトグル
 nnoremap <C-`> :call TerminalToggle()<CR>
 " ターミナルモードでターミナル表示をトグル
