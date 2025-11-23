@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 set -e
 
@@ -29,7 +29,7 @@ echo ""
 # 確認プロンプト
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-read -q "REPLY?続行しますか？ (y/N): "
+read -p "続行しますか？ (y/N): " REPLY
 echo ""
 
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -50,7 +50,7 @@ echo "└───────────────────────�
 echo ""
 
 if [[ -f "$SCRIPT_DIR/setup_zsh.sh" ]]; then
-    zsh "$SCRIPT_DIR/setup_zsh.sh"
+    bash "$SCRIPT_DIR/setup_zsh.sh"
 else
     echo "❌ エラー: setup_zsh.sh が見つかりません"
     exit 1
@@ -67,7 +67,7 @@ echo "└───────────────────────�
 echo ""
 
 if [[ -f "$SCRIPT_DIR/setup_tools.sh" ]]; then
-    zsh "$SCRIPT_DIR/setup_tools.sh"
+    bash "$SCRIPT_DIR/setup_tools.sh"
 else
     echo "❌ エラー: setup_tools.sh が見つかりません"
     exit 1
@@ -84,7 +84,7 @@ echo "└───────────────────────�
 echo ""
 
 if [[ -f "$SCRIPT_DIR/setup_vim.sh" ]]; then
-    zsh "$SCRIPT_DIR/setup_vim.sh"
+    bash "$SCRIPT_DIR/setup_vim.sh"
 else
     echo "❌ エラー: setup_vim.sh が見つかりません"
     exit 1

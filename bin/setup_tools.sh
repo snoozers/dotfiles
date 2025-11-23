@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 set -e
 
@@ -88,7 +88,7 @@ else
     echo ""
 
     # ユーザー入力を受け取る
-    read "choice?選択してください (1/2/3): "
+    read -p "選択してください (1/2/3): " choice
     echo ""
 
     case $choice in

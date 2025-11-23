@@ -76,7 +76,7 @@ cd ~/dotfiles
 ### 2. セットアップスクリプトを実行
 
 ```bash
-zsh bin/setup.sh
+bash bin/setup.sh
 ```
 
 セットアップスクリプトは以下を**自動的に実行**します：
@@ -323,7 +323,7 @@ sudo apt install ripgrep
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # または setup_zsh.sh を再実行
-zsh ~/dotfiles/bin/setup_zsh.sh
+bash ~/dotfiles/bin/setup_zsh.sh
 ```
 
 ### プラグインが動作しない
