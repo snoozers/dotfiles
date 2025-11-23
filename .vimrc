@@ -297,9 +297,6 @@ endfunction
 " ターミナル表示設定
 " ========================================
 
-" ターミナルウィンドウにフォーカスした時に自動的にインサートモードに入る
-autocmd WinEnter * if &buftype == 'terminal' | normal! i | endif
-
 " ターミナルをトグル表示する関数
 " 画面全体の下部にターミナルを表示（高さ30%）
 " ターミナルウィンドウが開いている場合は閉じる（バッファは保持）
@@ -342,6 +339,8 @@ function! TerminalToggle()
     " 既存のターミナルバッファを新しいウィンドウで表示
     execute 'botright sbuffer ' . terminal_bufnr
     execute 'resize ' . height
+    " ターミナルを開いたらインサートモードに入る
+    normal! i
   else
     " 新しいターミナルを作成
     execute 'botright terminal ++rows=' . height
