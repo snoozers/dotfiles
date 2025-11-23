@@ -5,10 +5,6 @@
 " リーダーキーを設定
 let mapleader = " "
 
-" カーソル移動
-noremap j gj
-noremap k gk
-
 " ノーマルモードでウィンドウ移動（Option + a/s/d/f）
 nnoremap <M-a> <C-w>h
 nnoremap <M-s> <C-w>j
