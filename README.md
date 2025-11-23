@@ -9,6 +9,11 @@
 ### 依存関係
 
 #### Zsh環境
+
+##### シェル
+- **Zsh 5.0以降** - このdotfilesの基盤となるシェル
+
+##### フレームワークとテーマ
 - **Oh My Zsh** - `~/.oh-my-zsh` にインストールされます
 - **Powerlevel10k** - Oh My Zshのカスタムテーマとしてインストールされます
 - **プラグイン**:
@@ -88,8 +93,9 @@ bash bin/setup.sh
    - zsh-syntax-highlighting（シンタックスハイライト）
 
 #### 外部ツール
-1. fzf（ファジーファインダー、必須）
-2. ripgrep（高速テキスト検索、推奨）
+1. zsh（シェル、必須）
+2. fzf（ファジーファインダー、必須）
+3. ripgrep（高速テキスト検索、推奨）
 
 #### Vim環境
 1. Vundle（プラグインマネージャ）のインストール
@@ -276,6 +282,31 @@ exec zsh
 ```
 
 ## 🛠️ トラブルシューティング
+
+### zsh がインストールされていない
+
+セットアップスクリプトで自動的にインストールされますが、手動でインストールする場合：
+
+**macOSの場合：**
+```bash
+brew install zsh
+```
+
+**Linuxの場合：**
+```bash
+# Debian/Ubuntu
+sudo apt install zsh
+
+# または Homebrew
+brew install zsh
+```
+
+**デフォルトシェルを zsh に変更：**
+```bash
+chsh -s $(which zsh)
+```
+
+変更後、一度ログアウトして再ログインすると zsh が有効になります。
 
 ### 外部ツールを手動でインストール
 
