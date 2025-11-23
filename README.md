@@ -12,7 +12,7 @@
 
 Linuxでセットアップスクリプトを使用する場合、以下のいずれかのパッケージマネージャーが必要です：
 
-- **apt-get** - Debian/Ubuntu系Linuxの標準パッケージマネージャー
+- **apt** - Debian/Ubuntu系Linuxの標準パッケージマネージャー
 - **Homebrew** (推奨) - クロスプラットフォーム対応で最新版のツールを使用可能
 
 **Homebrewのインストール方法（Linux）:**
@@ -338,11 +338,11 @@ chsh -s $(which zsh)
 
 セットアップスクリプト実行時にパッケージマネージャーが見つからない場合：
 
-**apt-getを使用する場合:**
+**aptを使用する場合:**
 
 ```bash
 # Debian/Ubuntuでは通常既にインストールされています
-which apt-get
+which apt
 ```
 
 **Homebrewを使用する場合:**

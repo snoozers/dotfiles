@@ -53,7 +53,7 @@ else
         HAS_BREW=true
     fi
 
-    if command -v apt-get &> /dev/null; then
+    if command -v apt &> /dev/null; then
         HAS_APT=true
     fi
 
@@ -64,7 +64,7 @@ else
     echo ""
     echo "外部ツール（fzf、ripgrep）のインストール方法を選択してください："
     echo ""
-    echo "  1) apt-get を使用"
+    echo "  1) apt を使用"
     echo "     - システム標準のパッケージマネージャー"
     echo "     - sudo権限が必要"
     echo "     - 高速にインストール可能"
@@ -96,9 +96,9 @@ else
         1)
             if [[ "$HAS_APT" == true ]]; then
                 PACKAGE_MANAGER="apt"
-                echo "✅ apt-get を使用します"
+                echo "✅ apt を使用します"
             else
-                echo "❌ エラー: apt-get が見つかりません"
+                echo "❌ エラー: apt が見つかりません"
                 echo "   別のパッケージマネージャーを選択してください。"
                 exit 1
             fi
@@ -162,8 +162,8 @@ else
     if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         brew install zsh
     elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
-        sudo apt-get update
-        sudo apt-get install -y zsh
+        sudo apt update
+        sudo apt install -y zsh
     fi
 
     if command -v zsh &> /dev/null; then
@@ -207,8 +207,8 @@ else
     if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         brew install fzf
     elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
-        sudo apt-get update
-        sudo apt-get install -y fzf
+        sudo apt update
+        sudo apt install -y fzf
     fi
 
     if command -v fzf &> /dev/null; then
@@ -242,7 +242,7 @@ else
     if [[ "$PACKAGE_MANAGER" == "brew" ]]; then
         brew install ripgrep
     elif [[ "$PACKAGE_MANAGER" == "apt" ]]; then
-        sudo apt-get install -y ripgrep
+        sudo apt install -y ripgrep
     fi
 
     if command -v rg &> /dev/null; then
