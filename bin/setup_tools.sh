@@ -43,44 +43,70 @@ if [[ "$OS_TYPE" == "Darwin" ]]; then
     fi
 else
     # Linux の場合
+    # Homebrewの存在に関わらず、常に選択プロンプトを表示
+
+    # 既存のパッケージマネージャーを検出
+    HAS_BREW=false
+    HAS_APT=false
+
     if command -v brew &> /dev/null; then
-        PACKAGE_MANAGER="brew"
-        echo "✅ Homebrew が見つかりました"
+        HAS_BREW=true
+    fi
+
+    if command -v apt-get &> /dev/null; then
+        HAS_APT=true
+    fi
+
+    # 選択プロンプトを表示（常に）
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "🔧 パッケージマネージャーの選択"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+    echo "外部ツール（fzf、ripgrep）のインストール方法を選択してください："
+    echo ""
+    echo "  1) apt-get を使用"
+    echo "     - システム標準のパッケージマネージャー"
+    echo "     - sudo権限が必要"
+    echo "     - 高速にインストール可能"
+    if [[ "$HAS_APT" == true ]]; then
+        echo "     ✅ 利用可能"
     else
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo "🔧 パッケージマネージャーの選択"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo ""
-        echo "外部ツール（fzf、ripgrep）のインストール方法を選択してください："
-        echo ""
-        echo "  1) apt-get を使用（推奨・高速）"
-        echo "     - システム標準のパッケージマネージャー"
-        echo "     - sudo権限が必要"
-        echo ""
-        echo "  2) Homebrew を使用"
-        echo "     - macOSと同じパッケージマネージャー"
-        echo "     - 最新版のツールを使用可能"
-        echo "     - Homebrewのインストールが必要（時間がかかります）"
-        echo ""
-        echo "  3) スキップ（後で手動インストール）"
-        echo ""
+        echo "     ⚠️  利用不可"
+    fi
+    echo ""
+    echo "  2) Homebrew を使用（推奨）"
+    echo "     - macOSと同じパッケージマネージャー"
+    echo "     - 最新版のツールを使用可能"
+    echo "     - クロスプラットフォームで一貫性がある"
+    if [[ "$HAS_BREW" == true ]]; then
+        echo "     ✅ 既にインストール済み"
+    else
+        echo "     Homebrewのインストールが必要（数分かかります）"
+    fi
+    echo ""
+    echo "  3) スキップ（後で手動インストール）"
+    echo ""
 
-        # ユーザー入力を受け取る
-        read "choice?選択してください (1/2/3): "
-        echo ""
+    # ユーザー入力を受け取る
+    read "choice?選択してください (1/2/3): "
+    echo ""
 
-        case $choice in
-            1)
-                if command -v apt-get &> /dev/null; then
-                    PACKAGE_MANAGER="apt"
-                    echo "✅ apt-get を使用します"
-                else
-                    echo "❌ エラー: apt-get が見つかりません"
-                    echo "   別のパッケージマネージャーを選択するか、手動でインストールしてください。"
-                    exit 1
-                fi
-                ;;
-            2)
+    case $choice in
+        1)
+            if [[ "$HAS_APT" == true ]]; then
+                PACKAGE_MANAGER="apt"
+                echo "✅ apt-get を使用します"
+            else
+                echo "❌ エラー: apt-get が見つかりません"
+                echo "   別のパッケージマネージャーを選択してください。"
+                exit 1
+            fi
+            ;;
+        2)
+            if [[ "$HAS_BREW" == true ]]; then
+                PACKAGE_MANAGER="brew"
+                echo "✅ 既存のHomebrew を使用します"
+            else
                 echo "📦 Homebrew をインストール中..."
                 echo "   （インストールには数分かかる場合があります）"
                 echo ""
@@ -100,21 +126,21 @@ else
                     echo "❌ エラー: Homebrewのインストールに失敗しました"
                     exit 1
                 fi
-                ;;
-            3)
-                echo "⏭️  外部ツールのインストールをスキップします"
-                echo ""
-                echo "📝 手動でインストールする場合："
-                echo "   README.md のトラブルシューティングセクションを参照してください"
-                echo ""
-                exit 0
-                ;;
-            *)
-                echo "❌ エラー: 無効な選択です"
-                exit 1
-                ;;
-        esac
-    fi
+            fi
+            ;;
+        3)
+            echo "⏭️  外部ツールのインストールをスキップします"
+            echo ""
+            echo "📝 手動でインストールする場合："
+            echo "   README.md のトラブルシューティングセクションを参照してください"
+            echo ""
+            exit 0
+            ;;
+        *)
+            echo "❌ エラー: 無効な選択です"
+            exit 1
+            ;;
+    esac
 fi
 
 echo ""
