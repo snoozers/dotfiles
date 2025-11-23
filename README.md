@@ -462,3 +462,16 @@ export PATH="$HOME/bin:$PATH"
 - [Powerlevel10k GitHub](https://github.com/romkatv/powerlevel10k)
 - [Oh My Zsh プラグイン一覧](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins)
 - [Oh My Zsh テーマ一覧](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes)
+
+## 📄 ライセンス
+
+このリポジトリはMITライセンスの下で公開されています。詳細は [LICENSE](./LICENSE) を参照してください。
+
+### サードパーティコンポーネント
+
+このリポジトリには以下のサードパーティコンポーネントが含まれています：
+
+- **[Powerlevel10k](https://github.com/romkatv/powerlevel10k)** 設定ファイル (`.p10k.zsh`)
+  - 元のプロジェクト: [romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k)
+  - ライセンス: MIT License
+  - このファイルはPowerlevel10kの設定ウィザードによって生成され、カスタマイズされたものです
