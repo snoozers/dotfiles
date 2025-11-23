@@ -8,12 +8,30 @@
 
 ### 依存関係
 
+#### パッケージマネージャー（Linux環境）
+
+Linuxでセットアップスクリプトを使用する場合、以下のいずれかのパッケージマネージャーが必要です：
+
+- **apt-get** - Debian/Ubuntu系Linuxの標準パッケージマネージャー
+- **Homebrew** (推奨) - クロスプラットフォーム対応で最新版のツールを使用可能
+
+**Homebrewのインストール方法（Linux）:**
+
+```bash
+# Homebrewをインストール
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# パスを設定（インストール後に表示される指示に従う）
+```
+
 #### Zsh環境
 
 ##### シェル
+
 - **Zsh 5.0以降** - このdotfilesの基盤となるシェル
 
 ##### フレームワークとテーマ
+
 - **Oh My Zsh** - `~/.oh-my-zsh` にインストールされます
 - **Powerlevel10k** - Oh My Zshのカスタムテーマとしてインストールされます
 - **プラグイン**:
@@ -32,7 +50,7 @@
 
 ## 🗂️ ディレクトリ構成
 
-```
+```txt
 ~/
 ├── .oh-my-zsh/                  # Oh My Zsh本体（ホームディレクトリにインストール）
 │   ├── oh-my-zsh.sh
@@ -86,11 +104,13 @@ bash bin/setup.sh
 セットアップスクリプトは以下を**自動的に実行**します：
 
 #### 外部ツール
+
 1. zsh（シェル、必須）
 2. fzf（ファジーファインダー、必須）
 3. ripgrep（高速テキスト検索、推奨）
 
 #### Zsh環境
+
 1. Oh My Zshのインストール（`~/.oh-my-zsh`）
 2. Powerlevel10kテーマのインストール
 3. 推奨プラグインのインストール
@@ -98,10 +118,12 @@ bash bin/setup.sh
    - zsh-syntax-highlighting（シンタックスハイライト）
 
 #### Vim環境
+
 1. Vundle（プラグインマネージャ）のインストール
 2. Vimプラグインのインストール
 
 #### 設定ファイル
+
 - `~/.zshenv` → `~/dotfiles/.zshenv`
 - `~/.zprofile` → `~/dotfiles/.zprofile`
 - `~/.zshrc` → `~/dotfiles/.zshrc`
@@ -150,6 +172,7 @@ fc-cache -f -v
 使用しているターミナルエミュレータの設定でフォントを `MesloLGS NF` に変更してください。
 
 **VS Code統合ターミナルの場合：**
+
 ```json
 // settings.json
 {
@@ -288,11 +311,13 @@ exec zsh
 セットアップスクリプトで自動的にインストールされますが、手動でインストールする場合：
 
 **macOSの場合：**
+
 ```bash
 brew install zsh
 ```
 
 **Linuxの場合：**
+
 ```bash
 # Debian/Ubuntu
 sudo apt install zsh
@@ -302,11 +327,35 @@ brew install zsh
 ```
 
 **デフォルトシェルを zsh に変更：**
+
 ```bash
 chsh -s $(which zsh)
 ```
 
 変更後、一度ログアウトして再ログインすると zsh が有効になります。
+
+### Linuxでパッケージマネージャーが見つからない
+
+セットアップスクリプト実行時にパッケージマネージャーが見つからない場合：
+
+**apt-getを使用する場合:**
+
+```bash
+# Debian/Ubuntuでは通常既にインストールされています
+which apt-get
+```
+
+**Homebrewを使用する場合:**
+
+```bash
+# Homebrewをインストール
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# パスを設定（インストール後に表示される指示に従う）
+
+# セットアップスクリプトを再実行
+bash ~/dotfiles/bin/setup.sh
+```
 
 ### 外部ツールを手動でインストール
 
@@ -317,11 +366,13 @@ chsh -s $(which zsh)
 Vim環境でファイル検索を行うために必要です。
 
 **macOSの場合：**
+
 ```bash
 brew install fzf
 ```
 
 **Linuxの場合：**
+
 ```bash
 # Debian/Ubuntu
 sudo apt install fzf
@@ -336,11 +387,13 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 高速なテキスト検索のために推奨されます。インストールされていない場合は通常のgrepが使用されます。
 
 **macOSの場合：**
+
 ```bash
 brew install ripgrep
 ```
 
 **Linuxの場合：**
+
 ```bash
 # Debian/Ubuntu
 sudo apt install ripgrep

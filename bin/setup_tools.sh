@@ -81,7 +81,8 @@ else
     if [[ "$HAS_BREW" == true ]]; then
         echo "     ✅ 既にインストール済み"
     else
-        echo "     Homebrewのインストールが必要（数分かかります）"
+        echo "     ⚠️  利用不可（手動インストールが必要）"
+        echo "        インストール方法: https://brew.sh/ja/"
     fi
     echo ""
     echo "  3) スキップ（後で手動インストール）"
@@ -107,25 +108,14 @@ else
                 PACKAGE_MANAGER="brew"
                 echo "✅ 既存のHomebrew を使用します"
             else
-                echo "📦 Homebrew をインストール中..."
-                echo "   （インストールには数分かかる場合があります）"
+                echo "❌ エラー: Homebrew が見つかりません"
                 echo ""
-                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-                # Homebrewのパスを設定
-                if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
-                    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-                elif [[ -d "$HOME/.linuxbrew" ]]; then
-                    eval "$($HOME/.linuxbrew/bin/brew shellenv)"
-                fi
-
-                if command -v brew &> /dev/null; then
-                    PACKAGE_MANAGER="brew"
-                    echo "✅ Homebrew のインストール完了"
-                else
-                    echo "❌ エラー: Homebrewのインストールに失敗しました"
-                    exit 1
-                fi
+                echo "📝 Homebrew を手動でインストールしてください："
+                echo "   /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+                echo ""
+                echo "   インストール後、指示に従いパスを設定してください）"
+                echo ""
+                exit 1
             fi
             ;;
         3)
