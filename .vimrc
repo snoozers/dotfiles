@@ -32,6 +32,11 @@ nnoremap <C-r> :FZFMru<CR>
 " テキスト検索
 nnoremap <C-f> :Rg<CR>
 
+" ノーマルモードでターミナル表示をトグル
+nnoremap <C-`> :call TerminalToggle()<CR>
+" ターミナルモードでターミナル表示をトグル
+tnoremap <C-`> <C-\><C-n>:call TerminalToggle()<CR>
+
 " ========================================
 " プラグイン管理設定
 " ========================================
@@ -278,6 +283,60 @@ function! SmartCloseAll()
 
   " 全てのバッファが処理された場合、Vimを終了
   quitall!
+endfunction
+
+" ========================================
+" ターミナル表示設定
+" ========================================
+
+" ターミナルをトグル表示する関数
+" 画面全体の下部にターミナルを表示（高さ30%）
+" ターミナルウィンドウが開いている場合は閉じる（バッファは保持）
+function! TerminalToggle()
+  " ターミナルウィンドウが既に開いているか確認
+  let terminal_win = -1
+  for i in range(1, winnr('$'))
+    if getbufvar(winbufnr(i), '&buftype') == 'terminal'
+      let terminal_win = i
+      break
+    endif
+  endfor
+
+  " 既に開いている場合はウィンドウを閉じる（バッファは保持）
+  if terminal_win != -1
+    execute terminal_win . 'wincmd w'
+    quit
+    return
+  endif
+
+  " 既存のターミナルバッファを探す（最後に使用したもの）
+  let terminal_bufnr = -1
+  let lastused = 0
+
+  for bufinfo in getbufinfo()
+    if bufinfo.bufnr > 0 && getbufvar(bufinfo.bufnr, '&buftype') == 'terminal'
+      " lastusedが最も新しいバッファを選択
+      if bufinfo.lastused > lastused
+        let lastused = bufinfo.lastused
+        let terminal_bufnr = bufinfo.bufnr
+      endif
+    endif
+  endfor
+
+  " ウィンドウの高さを計算（全体の30%）
+  let height = float2nr(&lines * 0.3)
+
+  " 画面全体の下部にターミナルを開く
+  if terminal_bufnr != -1
+    " 既存のターミナルバッファを新しいウィンドウで表示
+    execute 'botright sbuffer ' . terminal_bufnr
+    execute 'resize ' . height
+    " ノーマルモードでインサートモードに入る
+    normal! i
+  else
+    " 新しいターミナルを作成
+    execute 'botright terminal ++rows=' . height
+  endif
 endfunction
 
 " ========================================
