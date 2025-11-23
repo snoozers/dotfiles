@@ -16,6 +16,10 @@
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - コマンドのシンタックスハイライト
 
 #### Vim環境
+
+**注意**: このdotfilesは**Vimのみ**をサポートしています。Neovimはサポート対象外です。
+
+- **Vim 8.1.1270以降** - 検索カウント機能のネイティブサポートに必要（推奨: Vim 9.0以降）
 - **Vundle** - Vimプラグインマネージャ（`~/.vim/bundle/Vundle.vim`）
 - **fzf** - ファジーファインダー（ファイル検索、必須）
 - **ripgrep (rg)** - 高速テキスト検索ツール（推奨、なければgrepを使用）

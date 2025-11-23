@@ -45,6 +45,9 @@ nnoremap <C-`> :call TerminalToggle()<CR>
 " ターミナルモードでターミナル表示をトグル
 tnoremap <C-`> <C-\><C-n>:call TerminalToggle()<CR>
 
+" 指定文字にジャンプ
+nmap <C-j> <Plug>(easymotion-s)
+
 " ========================================
 " プラグイン管理設定
 " ========================================
@@ -93,6 +96,10 @@ Plugin 'sheerun/vim-polyglot'
 
 " インデントレベル可視化
 Plugin 'preservim/vim-indent-guides'
+
+" === ジャンプ・検索強化プラグイン ===
+" 高速ジャンプ
+Plugin 'easymotion/vim-easymotion'
 
 call vundle#end()
 filetype plugin indent on
@@ -216,6 +223,28 @@ let g:indent_guides_auto_colors=0
 if exists('g:colors_name')
   execute 'highlight IndentGuidesOdd  guibg=' . s:base02
   execute 'highlight IndentGuidesEven guibg=' . s:base03
+endif
+
+" ========================================
+" 検索設定
+" ========================================
+
+" 検索時にハイライト表示
+set hlsearch
+
+" インクリメンタルサーチを有効化
+set incsearch
+
+" 検索時に大文字小文字を区別しない（大文字が含まれる場合は区別）
+set ignorecase
+set smartcase
+
+" 検索結果のハイライトカラー設定
+if exists('g:colors_name')
+  " 通常の検索マッチ
+  execute 'highlight Search guifg=' . s:base03 . ' guibg=' . s:cyan . ' gui=bold'
+  " 現在のマッチ位置（インクリメンタルサーチ）
+  execute 'highlight IncSearch guifg=' . s:base03 . ' guibg=' . s:yellow . ' gui=bold'
 endif
 
 " ========================================
@@ -467,3 +496,113 @@ if executable('fzf')
   command! -bang Colors call fzf#vim#colors(
     \ {'options': ['--layout=reverse', '--border=rounded']}, <bang>0)
 endif
+
+" ========================================
+" vim-easymotion設定
+" ========================================
+
+" easymotionのデフォルトマッピングを無効化
+let g:EasyMotion_do_mapping = 0
+
+" 大文字小文字を区別しない
+let g:EasyMotion_smartcase = 1
+
+" ジャンプ先のハイライトカラー設定
+let g:EasyMotion_use_upper = 1  " 大文字ラベルを使用
+let g:EasyMotion_keys = 'ASDFJKL;GHQWERTYUIOPZXCVBNM'  " ホームポジション優先
+
+" ハイライトカラー設定（Solarized Darkに合わせる）
+if exists('g:colors_name')
+  execute 'highlight EasyMotionTarget guifg=' . s:red . ' gui=bold'
+  execute 'highlight EasyMotionTarget2First guifg=' . s:yellow . ' gui=bold'
+  execute 'highlight EasyMotionTarget2Second guifg=' . s:blue . ' gui=bold'
+  execute 'highlight EasyMotionShade guifg=' . s:base01
+endif
+
+" ========================================
+" 検索結果カウント表示（Vimネイティブ機能）
+" ========================================
+
+if has('patch-8.1.1270')
+  " 検索後に自動的にカウントを表示
+  function! s:ShowSearchCount()
+    let result = searchcount({'recompute': 1, 'maxcount': -1})
+    if empty(result) || result.total == 0
+      return
+    endif
+
+    if result.incomplete == 1
+      let msg = printf('[?/?]')
+    elseif result.incomplete == 2
+      if result.total > result.maxcount && result.current > result.maxcount
+        let msg = printf('[>%d/>%d]', result.current, result.total)
+      elseif result.total > result.maxcount
+        let msg = printf('[%d/>%d]', result.current, result.total)
+      endif
+    else
+      let msg = printf('[%d/%d]', result.current, result.total)
+    endif
+
+    echo msg
+  endfunction
+
+  " 検索移動後に自動的にカウント表示
+  augroup search_count
+    autocmd!
+    autocmd CursorMoved * if v:hlsearch | call s:ShowSearchCount() | endif
+  augroup END
+endif
+
+" ========================================
+" カーソル下の単語を自動ハイライト（Vimネイティブ実装）
+" ========================================
+
+" ハイライト更新の遅延時間（ミリ秒）
+set updatetime=200
+
+" カーソル下の単語用のハイライトグループを定義
+if exists('g:colors_name')
+  " カーソル下の単語のハイライト色（専用グループ）
+  " 検索ハイライトとは異なる色（緑系）を使用
+  execute 'highlight CurrentWord guifg=' . s:base03 . ' guibg=' . s:green . ' gui=bold'
+endif
+
+" カーソル下の単語を自動ハイライト
+let s:current_word_match_id = 0
+
+function! s:HighlightCurrentWord()
+  " 前回のハイライトをクリア
+  if s:current_word_match_id > 0
+    silent! call matchdelete(s:current_word_match_id)
+    let s:current_word_match_id = 0
+  endif
+
+  " カーソル下の単語を取得
+  let word = expand('<cword>')
+
+  " 単語が空でない場合のみハイライト
+  if !empty(word) && word =~# '\w'
+    let pattern = '\V\<' . escape(word, '/\') . '\>'
+    let s:current_word_match_id = matchadd('CurrentWord', pattern, -1)
+  endif
+endfunction
+
+augroup highlight_current_word
+  autocmd!
+  " カーソル停止時にハイライト
+  autocmd CursorHold * call s:HighlightCurrentWord()
+  " インサートモード時はハイライトをクリア
+  autocmd InsertEnter * if s:current_word_match_id > 0 | silent! call matchdelete(s:current_word_match_id) | let s:current_word_match_id = 0 | endif
+augroup END
+
+" ========================================
+" 検索ハイライト自動クリア
+" ========================================
+
+" インサートモード突入時にハイライトをクリア
+augroup auto_clear_hlsearch
+  autocmd!
+  autocmd InsertEnter * set nohlsearch
+  " 検索コマンド実行時に再度ハイライトを有効化
+  autocmd CmdlineEnter /,\? set hlsearch
+augroup END
