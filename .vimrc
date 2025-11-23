@@ -25,8 +25,6 @@ nnoremap <C-q> :call SmartCloseAll()<CR>
 
 " ファイル検索
 nnoremap <C-p> :Files<CR>
-" バッファ一覧から検索
-nnoremap <C-b> :Buffers<CR>
 " 最近使ったファイルから検索
 nnoremap <C-r> :FZFMru<CR>
 
@@ -40,6 +38,9 @@ tnoremap <C-`> <C-\><C-n>:call TerminalToggle()<CR>
 
 " 指定文字にジャンプ
 nmap <C-j> <Plug>(easymotion-s)
+
+" NERDTreeトグル表示
+nnoremap <C-b> :NERDTreeToggle<CR>
 
 " ========================================
 " プラグイン管理設定
@@ -176,7 +177,6 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 
 " === NERDTree設定 ===
-nnoremap <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=0            " フォルダアイコン表示
 let NERDTreeDirArrows=1            " 矢印でフォルダ表示
