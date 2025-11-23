@@ -54,6 +54,7 @@
 │   └── bin/
 │       ├── setup.sh             # 統合セットアップスクリプト（メイン）
 │       ├── setup_zsh.sh         # Zsh環境セットアップ
+│       ├── setup_tools.sh       # 外部ツールセットアップ
 │       └── setup_vim.sh         # Vim環境セットアップ
 │
 ├── .zshenv -> ~/dotfiles/.zshenv        # シンボリックリンク
@@ -87,6 +88,10 @@ zsh bin/setup.sh
    - zsh-autosuggestions（コマンド自動補完）
    - zsh-syntax-highlighting（シンタックスハイライト）
 
+#### 外部ツール
+1. fzf（ファジーファインダー、必須）
+2. ripgrep（高速テキスト検索、推奨）
+
 #### Vim環境
 1. Vundle（プラグインマネージャ）のインストール
 2. Vimプラグインのインストール
@@ -98,49 +103,7 @@ zsh bin/setup.sh
 - `~/.p10k.zsh` → `~/dotfiles/.p10k.zsh`
 - `~/.vimrc` → `~/dotfiles/.vimrc`
 
-### 3. 外部ツールのインストール
-
-#### fzf（必須）
-
-Vim環境でファイル検索を行うために必要です。
-
-**macOSの場合：**
-```bash
-brew install fzf
-```
-
-**Linuxの場合：**
-```bash
-# Debian/Ubuntu
-sudo apt install fzf
-
-# Arch Linux
-sudo pacman -S fzf
-
-# または手動インストール
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-```
-
-#### ripgrep（推奨）
-
-高速なテキスト検索のために推奨されます。インストールされていない場合は通常のgrepが使用されます。
-
-**macOSの場合：**
-```bash
-brew install ripgrep
-```
-
-**Linuxの場合：**
-```bash
-# Debian/Ubuntu
-sudo apt install ripgrep
-
-# Arch Linux
-sudo pacman -S ripgrep
-```
-
-### 4. フォントのインストール（必須）
+### 3. フォントのインストール（必須）
 
 **Powerlevel10kを正しく表示するには専用フォントが必須です！**
 
@@ -161,9 +124,6 @@ brew install font-fira-code-nerd-font
 ```bash
 # Debian/Ubuntu
 sudo apt install fonts-powerline
-
-# Arch Linux
-sudo pacman -S ttf-meslo-nerd
 
 # または手動インストール
 mkdir -p ~/.local/share/fonts
@@ -192,7 +152,7 @@ fc-cache -f -v
 }
 ```
 
-### 5. シェルを再起動
+### 4. シェルを再起動
 
 ```bash
 exec zsh
@@ -201,7 +161,7 @@ exec zsh
 初回起動時にPowerlevel10kの設定ウィザードが表示される場合があります。
 指示に従って好みの見た目を選択してください。
 
-### 6. （オプション）マシン固有の設定
+### 5. （オプション）マシン固有の設定
 
 マシン固有の設定（エイリアス、環境変数など）は `.zshrc_local` に記述します：
 
@@ -317,6 +277,44 @@ exec zsh
 ```
 
 ## 🛠️ トラブルシューティング
+
+### 外部ツールを手動でインストール
+
+セットアップスクリプトで自動インストールされますが、手動でインストールする場合は以下を実行してください。
+
+#### fzf（必須）
+
+Vim環境でファイル検索を行うために必要です。
+
+**macOSの場合：**
+```bash
+brew install fzf
+```
+
+**Linuxの場合：**
+```bash
+# Debian/Ubuntu
+sudo apt install fzf
+
+# または手動インストール
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
+
+#### ripgrep（推奨）
+
+高速なテキスト検索のために推奨されます。インストールされていない場合は通常のgrepが使用されます。
+
+**macOSの場合：**
+```bash
+brew install ripgrep
+```
+
+**Linuxの場合：**
+```bash
+# Debian/Ubuntu
+sudo apt install ripgrep
+```
 
 ### Oh My Zshが見つからない
 
