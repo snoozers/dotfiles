@@ -85,17 +85,17 @@ bash bin/setup.sh
 
 セットアップスクリプトは以下を**自動的に実行**します：
 
+#### 外部ツール
+1. zsh（シェル、必須）
+2. fzf（ファジーファインダー、必須）
+3. ripgrep（高速テキスト検索、推奨）
+
 #### Zsh環境
 1. Oh My Zshのインストール（`~/.oh-my-zsh`）
 2. Powerlevel10kテーマのインストール
 3. 推奨プラグインのインストール
    - zsh-autosuggestions（コマンド自動補完）
    - zsh-syntax-highlighting（シンタックスハイライト）
-
-#### 外部ツール
-1. zsh（シェル、必須）
-2. fzf（ファジーファインダー、必須）
-3. ripgrep（高速テキスト検索、推奨）
 
 #### Vim環境
 1. Vundle（プラグインマネージャ）のインストール
