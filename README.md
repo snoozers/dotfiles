@@ -69,8 +69,7 @@
 ### 1. リポジトリをクローン
 
 ```bash
-git clone https://github.com/snoozers/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+git clone https://github.com/snoozers/dotfiles.git ~/dotfiles && cd ~/dotfiles
 ```
 
 ### 2. セットアップスクリプトを実行
