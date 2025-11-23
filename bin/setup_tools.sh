@@ -106,7 +106,7 @@ else
         2)
             if [[ "$HAS_BREW" == true ]]; then
                 PACKAGE_MANAGER="brew"
-                echo "✅ 既存のHomebrew を使用します"
+                echo "✅ Homebrew を使用します"
             else
                 echo "❌ エラー: Homebrew が見つかりません"
                 echo ""
