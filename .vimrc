@@ -9,11 +9,16 @@ let mapleader = " "
 noremap j gj
 noremap k gk
 
-" ウィンドウ移動
-nnoremap <leader>a <C-w>h
-nnoremap <leader>s <C-w>j
-nnoremap <leader>d <C-w>k
-nnoremap <leader>f <C-w>l
+" ノーマルモードでウィンドウ移動（Option + a/s/d/f）
+nnoremap <M-a> <C-w>h
+nnoremap <M-s> <C-w>j
+nnoremap <M-d> <C-w>k
+nnoremap <M-f> <C-w>l
+" ターミナルモードでウィンドウ移動（Option + a/s/d/f）
+tnoremap <M-a> <C-\><C-n><C-w>h
+tnoremap <M-s> <C-\><C-n><C-w>j
+tnoremap <M-d> <C-\><C-n><C-w>k
+tnoremap <M-f> <C-\><C-n><C-w>l
 
 " 上書き保存
 nnoremap <C-c> :w<CR>
@@ -289,6 +294,9 @@ endfunction
 " ターミナル表示設定
 " ========================================
 
+" ターミナルウィンドウにフォーカスした時に自動的にインサートモードに入る
+autocmd WinEnter * if &buftype == 'terminal' | normal! i | endif
+
 " ターミナルをトグル表示する関数
 " 画面全体の下部にターミナルを表示（高さ30%）
 " ターミナルウィンドウが開いている場合は閉じる（バッファは保持）
@@ -331,8 +339,6 @@ function! TerminalToggle()
     " 既存のターミナルバッファを新しいウィンドウで表示
     execute 'botright sbuffer ' . terminal_bufnr
     execute 'resize ' . height
-    " ノーマルモードでインサートモードに入る
-    normal! i
   else
     " 新しいターミナルを作成
     execute 'botright terminal ++rows=' . height
