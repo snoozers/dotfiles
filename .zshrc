@@ -60,8 +60,15 @@ alias st='git stash'
 alias ch='git checkout'
 alias chp='git cherry-pick'
 
-# Git (peco連携): ブランチを peco で選択して checkout
-alias sw='git checkout `git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
+# Git (fzf連携): ブランチを fzf で選択して checkout
+# プレビューでブランチのコミット履歴を表示、入力欄は上部に表示
+alias sw='git checkout $(git branch --sort=-committerdate --format="%(refname:short)|%(committerdate:relative)|%(subject)" |
+  column -t -s "|" |
+  fzf --prompt="BRANCH> " \
+      --layout=reverse \
+      --preview="git log --color --oneline --graph {1} -20" \
+      --preview-window=right:60% \
+  | awk "{print \$1}")'
 
 # Git (関数): コード変更履歴 (特定の文字列) を検索
 # Usage: gs <search_string> [file_path]
@@ -160,43 +167,74 @@ add-zsh-hook chpwd chpwd_recent_dirs
 zstyle ":chpwd:*" recent-dirs-default true
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# peco 連携 (インタラクティブ・フィルタリング)
+# fzf 連携 (インタラクティブ・フィルタリング)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # ------------------------------------------------------------
-# [Ctrl + R]: コマンド履歴 (history) を peco で検索
+# [Ctrl + R]: コマンド履歴 (history) を fzf で検索
+# インライン表示でコンテキストを保持
 # ------------------------------------------------------------
-peco-select-history() {
-  # 履歴を peco に渡し、選択したコマンドを $BUFFER (入力行) にセット
-  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
-  CURSOR=$#BUFFER # カーソルを末尾に移動
-  zle clear-screen # 画面をクリア (pecoの表示を消す)
+fzf-select-history() {
+  BUFFER=$(history -n -r 1 |
+    fzf --query="$LBUFFER" \
+        --height=40% \
+        --layout=reverse \
+        --border \
+        --prompt="HISTORY> ")
+  CURSOR=$#BUFFER
+  zle reset-prompt
 }
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
 
 # ------------------------------------------------------------
-# [Ctrl + U]: ディレクトリ履歴 (cdr) を peco で検索して cd
+# [Ctrl + U]: ディレクトリ履歴 (cdr) を fzf で検索して cd
+# プレビューでディレクトリ内容を事前確認
 # ------------------------------------------------------------
-# peco で cdr の履歴を取得する内部関数
-peco-get-destination-from-cdr() {
-  cdr -l | \
-  sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  peco --query "$LBUFFER"
-}
-
-# peco で選択したディレクトリに cd する関数
-peco-cdr() {
-  local destination="$(peco-get-destination-from-cdr)"
+fzf-cdr() {
+  local destination="$(cdr -l |
+    sed -e 's/^[[:digit:]]*[[:blank:]]*//' |
+    sed "s|^~|$HOME|" |
+    fzf --query="$LBUFFER" \
+        --height=40% \
+        --layout=reverse \
+        --border \
+        --prompt="DIR> " \
+        --preview='ls -laG {} 2>/dev/null || echo "ディレクトリが存在しません"' \
+        --preview-window=right:50%)"
   if [ -n "$destination" ]; then
     BUFFER="cd $destination"
-    zle accept-line # コマンド (cd $destination) を実行
+    zle accept-line
   else
-    zle reset-prompt # キャンセルされた場合はプロンプトを再描画
+    zle reset-prompt
   fi
 }
-zle -N peco-cdr
-bindkey '^u' peco-cdr
+zle -N fzf-cdr
+bindkey '^u' fzf-cdr
+
+# ------------------------------------------------------------
+# プロセス検索・Kill
+# ------------------------------------------------------------
+# プロセスを検索して kill (Space で複数選択可能)
+alias fkill='ps aux |
+  fzf --header="Space: Mark | Enter: Kill selected" \
+      --height=40% \
+      --layout=reverse \
+      --multi \
+      --bind="space:toggle+down" \
+      --preview="echo {}" \
+      --preview-window=down:3:wrap |
+  awk "{print \$2}" |
+  xargs kill -9'
+
+# ------------------------------------------------------------
+# 環境変数の検索
+# ------------------------------------------------------------
+# 環境変数を検索・表示
+alias fenv='env | sort | fzf --height=40% \
+               --layout=reverse \
+               --preview="echo {}" \
+               --preview-window=down:3:wrap'
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # マシン固有設定の読み込み (.zshrc_local)
