@@ -64,7 +64,9 @@ alias chp='git cherry-pick'
 # プレビューでブランチのコミット履歴を表示、入力欄は上部に表示
 alias sw='git checkout $(git branch --sort=-committerdate --format="%(refname:short)|%(committerdate:relative)|%(subject)" |
   column -t -s "|" |
-  fzf --prompt="BRANCH> " \
+  fzf --exact \
+      --no-sort \
+      --prompt="BRANCH> " \
       --layout=reverse \
       --preview="git log --color --oneline --graph {1} -20" \
       --preview-window=right:60% \
@@ -176,7 +178,10 @@ zstyle ":chpwd:*" recent-dirs-default true
 # ------------------------------------------------------------
 fzf-select-history() {
   BUFFER=$(history -n -r 1 |
-    fzf --query="$LBUFFER" \
+    fzf --exact \
+        --scheme=history \
+        --tiebreak=index \
+        --query="$LBUFFER" \
         --height=40% \
         --layout=reverse \
         --border \
@@ -195,7 +200,9 @@ fzf-cdr() {
   local destination="$(cdr -l |
     sed -e 's/^[[:digit:]]*[[:blank:]]*//' |
     sed "s|^~|$HOME|" |
-    fzf --query="$LBUFFER" \
+    fzf --exact \
+        --no-sort \
+        --query="$LBUFFER" \
         --height=40% \
         --layout=reverse \
         --border \
