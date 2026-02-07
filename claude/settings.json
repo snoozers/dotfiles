@@ -45,21 +45,6 @@
       "Bash(readlink:*)",
       "WebFetch(domain:docs.anthropic.com)"
     ],
-    "ask": [
-      "Bash(git checkout:*)",
-      "Bash(git stash:*)",
-      "Bash(git pull:*)",
-      "Bash(git merge:*)",
-      "Bash(git rebase:*)",
-      "Bash(git branch -d:*)",
-      "Bash(git tag:*)",
-      "Bash(mv:*)",
-      "Bash(rm:*)",
-      "Bash(cp:*)",
-      "Bash(chmod:*)",
-      "Bash(mkdir:*)",
-      "Bash(touch:*)"
-    ],
     "deny": [
       "Read(**/.env)",
       "Read(**/.env.*)",
@@ -168,11 +153,27 @@
       "Bash(curl http://169.254.169.254/:*)",
       "Bash(wget http://169.254.169.254/:*)",
       "Bash(curl http://metadata.google.internal/:*)"
+    ],
+    "ask": [
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(git pull:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+      "Bash(git branch -d:*)",
+      "Bash(git tag:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(cp:*)",
+      "Bash(chmod:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)"
     ]
   },
-  "alwaysThinkingEnabled": true,
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline-command.sh"
-  }
+  },
+  "language": "japanese",
+  "alwaysThinkingEnabled": true
 }
